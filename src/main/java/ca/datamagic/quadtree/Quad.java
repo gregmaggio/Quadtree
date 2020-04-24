@@ -113,18 +113,26 @@ public class Quad implements Serializable {
 	    if (this.midLongitude > longitude) {
 	    	if (this.midLatitude < latitude) {
 	    		// Indicates topLeftTree
-	    		this.topLeftTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		if (this.topLeftTree != null) {
+	    			this.topLeftTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		}
 	    	} else {
 	    		// Indicates botLeftTree
-	    		this.botLeftTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		if (this.botLeftTree != null) {
+	    			this.botLeftTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		}
 	    	}
 	    } else {
 	    	if (this.midLatitude < latitude) {
 	    		// Indicates topRightTree
-	    		this.topRightTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		if (this.topRightTree != null) {
+	    			this.topRightTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		}
 	    	} else {
 	    		// Indicates botRightTree
-	    		this.botRightTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		if (this.botRightTree != null) {
+	    			this.botRightTree.readNearest(latitude, longitude, distanceInMeters, results);
+	    		}
 	    	}
 	    }
 	}
