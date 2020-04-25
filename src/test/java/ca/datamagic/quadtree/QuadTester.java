@@ -78,4 +78,13 @@ public class QuadTester {
 		Assert.assertNotNull(station3);
 		Assert.assertTrue(station3.getStationId().compareToIgnoreCase("K1M4") == 0);
 	}
+	
+	@Test
+	public void testReadNearestWaco() throws Exception {
+		ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("C:/Dev/Applications/StationQuadtreeBuilder/src/main/resources/data/tree.ser"));
+		Quad tree = (Quad)inputStream.readObject();
+		inputStream.close();
+		Station station = tree.readNearest(31.6135868,-97.2284829, distance, units);
+		Assert.assertNotNull(station);
+	}
 }

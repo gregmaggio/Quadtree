@@ -90,25 +90,25 @@ public class Quad implements Serializable {
 	}
 	
 	private void readNearest(double latitude, double longitude, double distanceInMeters, LinkedList<SearchResult> results) {
+		// Don't do this to me
+		if (Double.isNaN(distanceInMeters)) {
+			return;
+		}
 		// Current quad cannot contain it 
 	    if (!this.inBoundary(latitude, longitude)) {
 	        return; 
 	    }
 	    
-	    double distance = computeDistance(this.midLatitude, this.midLongitude, latitude, longitude);
-	    if (!Double.isNaN(distance)) {
-		    if (distance <= distanceFromCenter) {
-		    	for (int ii = 0; ii < this.nodes.size(); ii++) {
-		    		Node node = this.nodes.get(ii);
-		    		Point point = node.getPoint();
-		    		double distanceToNode = computeDistance(latitude, longitude, point.getLatitude(), point.getLongitude());
-		    		if (distanceToNode <= distanceInMeters) {
-		    			results.add(new SearchResult(node, distanceToNode));
-		    		}
-		    	}
-		    	return;
-		    }
-	    }
+    	for (int ii = 0; ii < this.nodes.size(); ii++) {
+    		Node node = this.nodes.get(ii);
+    		Point point = node.getPoint();
+    		double distanceToNode = computeDistance(latitude, longitude, point.getLatitude(), point.getLongitude());
+    		if (!Double.isNaN(distanceToNode)) {
+	    		if (distanceToNode <= distanceInMeters) {
+	    			results.add(new SearchResult(node, distanceToNode));
+	    		}
+    		}
+    	}
 	    
 	    if (this.midLongitude > longitude) {
 	    	if (this.midLatitude < latitude) {
